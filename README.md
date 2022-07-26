@@ -1,7 +1,7 @@
 <h1 align='center'>Weekly Sales Prediction at Walmart Dataset</h1>
 
 <p align="center">
-  <img src="https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/five_stars.png" width=600>
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/images/Walmart.jpg" width=600>
 </p>
 
 ## Business Case
@@ -35,23 +35,17 @@ LinkedIn: www.linkedin.com/in/muhammad-rizqiansyah <br>
 <summary>Show/Hide</summary>
 <br>
     
-* <strong>[ Data ](https://github.com/awesomeahi95/Hotel_Review_NLP/tree/master/Data)</strong>: folder containing all data files
+* <strong>[ Data ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/tree/main/data)</strong>: folder containing all data files
     * <strong>1.Walmart.csv</strong>: data before any changes
     * <strong>2.Walmart_structured.csv</strong>: data after cleaning, feature engineering and feature elimination
     * <strong>3.x_train_data.csv</strong>: training data with x values from preprocessed dataset
     * <strong>3.y_train_data.csv</strong>: training data with y values from preprocessed dataset
     * <strong>4.x_test_data.csv</strong>: test data with x values from preprocessed dataset
     * <strong>4.y_test_data.csv</strong>: test data with y values from preprocessed dataset
-* <strong>[ Images ](https://github.com/awesomeahi95/Hotel_Review_NLP/tree/master/Images)</strong>: folder containing images used for README and presentation pdf
-* <strong>[ Models ](https://github.com/awesomeahi95/Hotel_Review_NLP/tree/master/Models)</strong>: folder containing trained models saved with pickle
-    * <strong>Linear Regression.pkl, Ridge Regression.pkl, Lasso Regression.pkl, ElasticNET Regression.pkl, Linear Regression_OutlierDropped.pkl, Rdge Regression_OutlierDropped.pkl, Lasso Regression_OutlierDropped.pkl, ElasticNET Regression_OutlierDropped.pkl, Linear Regression_OutlierTransformed.pkl, Ridge Regression_OutlierTransformed.pkl, Lasso Regression_OutlierTransformed.pkl, ElasticNET Regression_OutlierTransformed.pkl</strong>
-* <strong>[ 1.Early_EDA_and_Cleaning.ipynb ](https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/1.Webscraping_Early_EDA_and_Cleaning.ipynb)</strong>: notebook with early data exploration and data manipulation
-* <strong>[ 2.Further_EDA_and_Preprocessing.ipynb ](https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/2.Further_EDA_and_Preprocessing.ipynb)</strong>: notebook with feature engineering and data cleansing
-* <strong>[ 3.Modelling_and_Hyperparameter_Tuning.ipynb ](https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/3.Modelling_and_Hyperparameter_Tuning.ipynb)</strong>: notebook with all the models created
-* <strong>[ 4.Evaluation ](https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/4.Evaluation.ipynb)</strong>: notebook with final model selection, testing, and model evaluation
-* <strong>[ Classification.py ](https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Classification.py)</strong>: contains classes with classifcation methods
-* <strong>[ Ensemble.py ](https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Ensemble.py)</strong>: contains classes with ensemble methods
-* <strong>[ Hilton_Hotel_App.py ](https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Hilton_Hotel_App.py)</strong>: contains script to run app
+* <strong>[ Images ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/tree/main/images)</strong>: folder containing images used for README and presentation pdf
+* <strong>[ 1.Early_EDA.ipynb ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/1.Early_EDA.ipynb)</strong>: notebook with early data exploration and data manipulation
+* <strong>[ 2.Feature_Selection.ipynb ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/2.Feature_Selection.ipynb)</strong>: notebook with all the models created
+* <strong>[ 3.Modelling_Tuning___Evaluation.ipynb ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/3.Modelling_Tuning___Evaluation.ipynb)</strong>: notebook with all the models created, final model selection, testing, and model evaluation
 * <strong>[ Weekly_Sales_Prediction_Presentation.pdf ](https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Hilton_Hotel_Presentation.pdf)</strong>: presentation summarising project case, processes, and findings
 </details>
 
@@ -67,8 +61,6 @@ LinkedIn: www.linkedin.com/in/muhammad-rizqiansyah <br>
 * <strong>Matplotlib</strong>
 * <strong>Seaborn</strong>
 * <strong>Scikit-Learn</strong>
-* <strong>Keras</strong>
-* <strong>Tensorflow</strong>
 </details>
 
 ## Structure of Notebooks:
@@ -77,67 +69,44 @@ LinkedIn: www.linkedin.com/in/muhammad-rizqiansyah <br>
 <summary>Show/Hide</summary>
 <br>
     
-1. Early EDA and Cleaning
-   * 1.2 Imports
+1. Early EDA and Data Cleaning
+   * 1.1 Imports
+   * 1.2 Data Understanding
    * 1.3 Checking for Nulls
-   * 1.4 Converting Score Column
-   * 1.6 Joining Review Part 1 with Review Part 2 in New Column Review
-   * 1.7 Removing Review Part 1 and Review Part 2 Columns
-   * 1.8 Saving Structured Dataset as a CSV
+   * 1.4 Check Duplicated Data
+   * 1.5 Feature Engineering: Date Variable
+   * 1.6 Data Distribution
+     * 1.6.1 Data Distribution: Target
+     * 1.6.2 Data Distribution: Numerical Features
+     * 1.6.3 Data Distribution: Categorical Features
+   * 1.7 Feature Analysis
+     * 1.7.1 Feature Analysis: Holiday_Flag vs Weekly_Sales
+     * 1.7.2 Feature Analysis: Day, Month, Year vs Weekly_Sales
+     * 1.7.3 Feature Analysis: Unempoloyment, CPI vs Weekly_Sales
+   * 1.8 Finding and Handling Outliers
+   * 1.9 Data Encoding
+   * 1.10 Exporting Data
 
-2. Further EDA and Preprocessing
+2. Feature Selection
    * 2.1 Imports
-   * 2.2 Checking Frequency of Words and Phrases in Review Summaries
-   * 2.3 Checking Frequency of Words and Phrases in Reviews
-   * 2.4 Stemming and Lemming
-   * 2.5 Train Test Split
-   * 2.6 TF-IDF Vectorisation for Reviews
-   * 2.7 TF-IDF Vectorisation for Review Summaries
-   * 2.8 Joining Reviews With Review Summaries
-   * 2.9 Saving Preprocessed Dataset as CSVs
+   * 2.2 Feature Importance
+   * 2.3 Feature Ranking using RFE (Recursive Feature Elimination)
+   * 2.4 Feature Decomposition using PCA (Principal Component Analysis)
+   * 2.5 Exporting Data
 
-3. Modelling and Hyperparameter Tuning
+3. Modelling & Evaluation
    * 3.1 Imports
-   * 3.2 Train and Validation Split
-   * 3.3 Decision Tree (Baseline)
-   * 3.4 Random Forest
-   * 3.5 Linear Regression
-   * 3.6 Support Vector Machines
-   * 3.7 Guassian Naive Bayes
-   * 3.8 KNN
-   * 3.9 Adaboost (Logistic Regression)
-   * 3.10 XGBoost (Logistic Regression)
-   * 3.11 Voting
-   * 3.12 Stacking
-   * 3.13 All Models Compared
-   * 3.14 Best Model (Logistic Regression) - Deeper Look
-   * 3.15 Saving Best Model
-
-4. Evaluation
-   * 4.1 Imports
-   * 4.2 Best Model Selection
-   * 4.3 Best Model Tested
-   * 4.4 Deeper Diver Into Best Model
-   * 4.5 Application Deployability
-    
-5. Neural Network Modelling
-    * 5.1 Imports
-    * 5.2 One Hot Encoding Score Column
-    * 5.3 Train Test Split
-    * 5.4 Add Suffix to the Review Summary to Distinguish the Difference
-    * 5.5 Removing Punctuation and Tokenizing Review Column
-    * 5.6 Creating a Dictionary With Words That Appear in Reviews and an Index
-    * 5.7 Indexing Words in Reviews Using Dictionary
-    * 5.8 Combining Indexed Review Summary and Indexed Review Into a Single Column Called All Preprocessed Review
-    * 5.9 Modelling
-    * 5.10 Testing Model
-    * 5.11 Test Confusion Matrix
-    * 5.12 Saving Model
-    
-6. Revaluation and Deployment
-    * 6.1 Imports
-    * 6.2 Comparing Stacking Model with Neural Network Model
-    * 6.3 Deployment
+   * 3.2 Create Function
+   * 3.3 Modelling
+     * 3.3.1 Linear Regression
+       * 3.3.1.1 Dataset 1 (With Outliers)
+       * 3.3.1.2. Dataset 2 (Outliers Dropped)
+       * 3.3.1.3 Dataset 3 (Outliers Transformed)
+       * 3.3.1.4 Evaluation for Linear Regression
+     * 3.3.2 Ridge Regression
+       * 3.3.2.1 Ridge Regression: Base Model
+       * 3.3.2.2 Ridge Regression: Hyperparameter Tuning
+     * 3.3.4 ElasticNet Regression
 </details>  
    
 <a name="Executive_Summary"></a>
@@ -145,7 +114,7 @@ LinkedIn: www.linkedin.com/in/muhammad-rizqiansyah <br>
 
 
 <a name="Early_EDA_and_Cleaning"></a>
-#### Early EDA and Cleaning: 
+#### Early EDA and Data Cleaningg: 
 
 The initial shape of the dataset was (35078,5). The 5 columns was as expected, but there were double the number of rows as the number of reviews scraped. There were null rows with only hotel_name and no other values, so I removed those rows, bringing us back to the expected 17538.
 
@@ -158,7 +127,7 @@ I combined the review p1 and review p2 column into one to make future vectorisat
 </details>  
 
 <a name="Further_EDA_and_Preprocessing"></a>
-### Further EDA and Preprocessing
+### Feature Selection
 <details open>
 <summary>Show/Hide</summary>
 <br>
