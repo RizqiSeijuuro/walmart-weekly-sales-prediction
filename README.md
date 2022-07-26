@@ -53,7 +53,7 @@ LinkedIn: www.linkedin.com/in/muhammad-rizqiansyah <br>
 * <strong>[ 1.Early_EDA.ipynb ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/1.Early_EDA.ipynb)</strong>: notebook with early data exploration and data manipulation
 * <strong>[ 2.Feature_Selection.ipynb ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/2.Feature_Selection.ipynb)</strong>: notebook with feature selection
 * <strong>[ 3.Modelling_Tuning___Evaluation.ipynb ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/3.Modelling_Tuning___Evaluation.ipynb)</strong>: notebook with all the models created, final model selection, testing, and model evaluation
-* <strong>[ Weekly_Sales_Prediction_Presentation.pdf ](https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Hilton_Hotel_Presentation.pdf)</strong>: presentation summarising project case, processes, and findings
+* <strong>[ Weekly_Sales_Prediction_Presentation.pdf ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/feb18f0171f80290d61f324c7f93691e51894bf9/Weekly_Sales_Prediction_Presentation.pdf)</strong>: presentation summarising project case, processes, and findings
 </details>
 
 ## Tecnologies Used:
