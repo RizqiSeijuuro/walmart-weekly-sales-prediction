@@ -37,14 +37,21 @@ LinkedIn: www.linkedin.com/in/muhammad-rizqiansyah <br>
     
 * <strong>[ Data ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/tree/main/data)</strong>: folder containing all data files
     * <strong>1.Walmart.csv</strong>: data before any changes
-    * <strong>2.Walmart_structured.csv</strong>: data after cleaning, feature engineering and feature elimination
-    * <strong>3.x_train_data.csv</strong>: training data with x values from preprocessed dataset
-    * <strong>3.y_train_data.csv</strong>: training data with y values from preprocessed dataset
-    * <strong>4.x_test_data.csv</strong>: test data with x values from preprocessed dataset
-    * <strong>4.y_test_data.csv</strong>: test data with y values from preprocessed dataset
+    * <strong>2.data.csv</strong>: data after cleaning, feature engineering and feature elimination (no dropping outliers)
+    * <strong>3.data_dropped_outlier.csv</strong>: data after cleaning, feature engineering and feature elimination (with dropped outliers)
+    * <strong>3.data_tf_outlier.csv</strong>: data after cleaning, feature engineering and feature elimination (with outliers transformation)
+    * <strong>4.data_enc.csv</strong>: data after cleaning, feature engineering and feature elimination (no dropping outliers & encoding)
+    * <strong>4.data_drop_outlier_enc.csv</strong>: data after cleaning, feature engineering and feature elimination (with dropped outliers & encoding)
+    * <strong>1.data_tf_outlier_enc.csv</strong>: data after cleaning, feature engineering and feature elimination (with outliers transformation & encoding)
+    * <strong>2.X.csv</strong>: data with x values from preprocessed dataset (no dropping outliers & encoding)
+    * <strong>3.y.csv</strong>: data with y values from preprocessed dataset (no dropping outliers & encoding)
+    * <strong>3.X_2.csv</strong>: data with x values from preprocessed dataset (with dropped outliers & encoding)
+    * <strong>4.y_2.csv</strong>: data with y values from preprocessed dataset (with dropped outliers & encoding)
+    * <strong>4.X_3.csv</strong>: data with x values from preprocessed dataset (with outliers transformation & encoding)
+    * <strong>4.y_3.csv</strong>: data with y values from preprocessed dataset (with outliers transformation & encoding)
 * <strong>[ Images ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/tree/main/images)</strong>: folder containing images used for README and presentation pdf
 * <strong>[ 1.Early_EDA.ipynb ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/1.Early_EDA.ipynb)</strong>: notebook with early data exploration and data manipulation
-* <strong>[ 2.Feature_Selection.ipynb ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/2.Feature_Selection.ipynb)</strong>: notebook with all the models created
+* <strong>[ 2.Feature_Selection.ipynb ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/2.Feature_Selection.ipynb)</strong>: notebook with feature selection
 * <strong>[ 3.Modelling_Tuning___Evaluation.ipynb ](https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/c6fe15945e635d8b367f795f9f8e85b89a50d100/3.Modelling_Tuning___Evaluation.ipynb)</strong>: notebook with all the models created, final model selection, testing, and model evaluation
 * <strong>[ Weekly_Sales_Prediction_Presentation.pdf ](https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Hilton_Hotel_Presentation.pdf)</strong>: presentation summarising project case, processes, and findings
 </details>
