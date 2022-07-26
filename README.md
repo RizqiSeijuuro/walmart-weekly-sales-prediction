@@ -23,9 +23,9 @@ LinkedIn: www.linkedin.com/in/muhammad-rizqiansyah <br>
 3. [ Structure ](#Structure)
 4. [ Executive Summary ](#Executive_Summary)
    * [ 1. Early EDA and Cleaning](#Early_EDA_and_Cleaning)
-   * [ 2. Further EDA and Preprocessing ](#Further_EDA_and_Preprocessing) 
-   * [ 3. Modelling and Hyperparameter Tuning ](#Modelling)
-   * [ 4. Evaluation ](#Evaluation)
+   * [ 2. Feature Selection ](#Feature_Selection) 
+   * [ 3. Modelling, Hyperparameter Tuning & Evaluation](#Modelling)
+       * [ Conclusion ](#Conclusion)
        * [ Future Improvements ](#Future_Improvements)
 </details>
 
@@ -121,78 +121,135 @@ LinkedIn: www.linkedin.com/in/muhammad-rizqiansyah <br>
 
 
 <a name="Early_EDA_and_Cleaning"></a>
-#### Early EDA and Data Cleaningg: 
+### Early EDA and Data Cleaning
+<details open>
+<summary>Show/Hide</summary>
+<br>
 
-The initial shape of the dataset was (35078,5). The 5 columns was as expected, but there were double the number of rows as the number of reviews scraped. There were null rows with only hotel_name and no other values, so I removed those rows, bringing us back to the expected 17538.
+#### Data Cleaning
+Walmart dataset consisting of 6435 rows and 8 columns, which has the target column Weekly_Sales. we could say the dataset is quite clean, where there are no missing values and duplicate values.
 
-This project entailed the use of classification models, and for reliable results, I had to remove reviews to undo class imbalance. Using this visualisation I saw that were much less reviews with a score of 1 compared to reviews with a score of 3, 4, and 5. To combat this imbalance, I randomly removed reviews with scores of 2, 3, 4, and 5, to match with 1 (1881 reviews). 
+On holidays from 2010-2012, all of them are in the dataset except Thanksgiving and Christmas, there is no data in 2012. This is due to the incomplete data range. The Data ranges is from 5 February 2010 - 6 October 2012.
 
-<h5 align="center">Histogram of Scores for All Hotels (With  Class Imbalance (Left) vs Without  Class Imbalance (Right))</h5>
-<table><tr><td><img src='https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/histogram_of_scores_for_all_hotels.png' width=500></td><td><img src='https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/histogram_of_scores_for_all_hotels_after_balancing.png' width=500></td></tr></table>
+<h5 align="center">Walmart Dataset Information</h5>
+<table><tr><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/302735cece83b42514877e9e3485844742ef6a76/images/Slide1.JPG' width=500></td><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide2.JPG' width=500></td></tr></table>
 
-I combined the review p1 and review p2 column into one to make future vectorisation much easier, then I saved the cleaned dataset as a csv, for the next stage.
+There are outliers in the Temperature column as many as 3 rows. Our assumption is that winter starts in early December and ends at the end of February 2011. So, these outliers can be considered reasonable. Therefore, we will leave this outlier. The outliers in the Unemployment column are almost 500 rows. Apparently, the low unemployment rate occurred in 2012, while the high one occurred throughout the year. We cannot provide strong enough assumptions so that further outlier handling is necessary.
+
+<h5 align="center">Outliers (Temperature Column (Left) & Unemplyment Column (Right))</h5>
+<table><tr><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide3.JPG' width=500></td><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide4.JPG' width=500></td></tr></table>
+
+so that there will be 3 scenarios used, (1) leave the outliers (2) outliers removed (3) outlier transformation.
+<h5 align="center">Handling Outliers</h5>
+<p align="center">
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide5.JPG" width=600>
+</p>
+
+#### Exploratory Data Analysis
+
+<h5 align="center">Annual Sales Graph</h5>
+<p align="center">
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide6.JPG" width=600>
+</p>
+
+From the Annual Sales graph, it can be seen that the largest sales occurred in 2012, followed by 2010 and 2011. It should be noted that the data ranges are not balanced every year, so we only take the range from February to July to find out the difference.
+
+<h5 align="center">Average Weekly Sales in Months</h5>
+<p align="center">
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide7.JPG" width=600>
+</p>
+
+We dig deeper. It turns out that the largest Average Weekly Sales is in December. Where in that month there are Christmas and New Year's holidays, followed by November where in that month there is a Thanksgiving holiday.
+
+<h5 align="center"Weekly Sales vs Time</h5>
+<p align="center">
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide8.JPG" width=600>
+</p>
+
+If we dig deeper, we can see that the biggest Weekly Sales occur around November and December. This strengthens our assumption that November to December is indeed the highest demand for goods.
+
+<h5 align="center">Average Weekly Sales on Holiday vs Normal Day</h5>
+<p align="center">
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide9.JPG" width=600>
+</p>
+
+Average Weekly Sales when Holiday is higher on weekdays. Of course, but there is a unique thing that I will explain later.
+
+<h5 align="center">Average Weekly Sales on Holiday vs Normal Day (detailed)</h5>
+<p align="center">
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide10.JPG" width=600>
+</p>
+
+If we dig deeper, Thanksgiving has the highest increase in Average Weekly Sales compared to other holidays. Followed by the Super Bowl with a slight difference. The unique thing here is that sales during Labor Day and Christmas are lower than normal days.
+
+<h5 align="center">Average Weekly Sales on 1 week before Holiday vs Normal Day (detailed)</h5>
+<p align="center">
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide11.JPG" width=600>
+</p>
+
+Meanwhile, at 1 week before a holiday. It turned out that Christmas experienced the highest increase in Average Weekly Sales compared to other holidays. Followed by the Super Bowl with a slight difference. Again, the unique thing here is that Thanksgiving and Labor Day are lower than normal days.
+
+<h5 align="center">Weekly Sales vs Unemployment Rate (Left) & CPI (Right)</h5>
+<table><tr><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide12.JPG' width=500></td><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide13.JPG' width=500></td></tr></table>
+
+For the Unemployment Rate factor, the insight that we can take here is that the highest Average Weekly Sales is at a very low Unemployment Rate and for the Customer Price Index (CPI) factor, the highest Average Weekly Sales is at a slightly low CPI level. From these 2 variables, it means that the country's economic factors here do not really affect Walmart's weekly sales.
+
+
 </details>  
 
-<a name="Further_EDA_and_Preprocessing"></a>
+<a name="Feature_Selection"></a>
 ### Feature Selection
 <details open>
 <summary>Show/Hide</summary>
 <br>
     
-The cleaned dataset had a shape of (9405,4). I started with some analysis on the text columns; review and review summary.
+Here are RFE and PCA. RFE works by selecting features based on an estimator recursively, the estimator we use is the Linear Regression coefficient. Meanwhile, PCA works by reducing features by combining based on the value of the variance.
 
-Using the FreqDist function in the ntlk library I plotted a graph with the most frequent words and phrases in both columns. Stopwords were removed to capture the more meaningful words.
+<h5 align="center">Recursive Feature Elimination (Left) & Principal Componenet Analysis (Right)</h5>
+<table><tr><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide14.JPG' width=500></td><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide15.JPG' width=500></td></tr></table>
 
-<h5 align="center">Distribution Plot of Frequent Words and Phrases in Text ( Review Summary (Left) and Review (Right) )</h5>
-<table><tr><td><img src='https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/freq_dist_review_sum.png' width=500></td><td><img src='https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/freq_dist_review.png' width=500></td></tr></table>
+For RFE, we plot the value of R2 along with the loss of features in the dataset. We can see that the R2 value begins to fall drastically after the number of features dropped exceeds 75, so the best number of features is the total number of features 151-75, which is 76. For PCA, we plot as well as the previous RFE. Unfortunately PCA is overfitting because the R2 value is very good on the training dataset, but it is negative and fluctuates drastically in the testing dataset. So it was decided to use an RFE whose performance is more stable.
 
-I had noticed a lot of the most frequent words in the review text happened to be words with no sentimental impact, so I iteratively removed unmeaningful words such as 'room', 'hotel', 'hilton' etc. I did this as a precaution, as some of these words may impact my model accuracies.
-
-<h5 align="center">World Cloud of Frequent Words and Phrases in Text After Removing Unmeaningful Words ( Review Summary (Left) and Review (Right) )</h5>
-<table><tr><td><img src='https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/word_cloud_review_sum.png' width=500></td><td><img src='https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/word_cloud_review.png' width=500></td></tr></table>
-
-To narrow down the feature words I applied stemmation and lemmitisation to both the reviews and review summaries. 
-
-<h5 align="center">Example of Lemmatisation and Stemmation Applied to a Review and Review Summary</h5>
-<p align="center">
-  <img src="https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/lemm_stemm_ex.png" width=600>
-</p>
-
-Stemmation had broken down some words into words that don't exist, whereas lemmitisation had simplified adjectives and verbs to their root form. I chose to continue with the lemmitised version of the texts for further processing.
-
-Prior to vectorising the current dataset, I did a train, test split to save the test data for after modelling.
-
-Using the lemmed texts for review and review summary I used TF-IDF vectorisation with an ngram range of 2, leaving me with a vectorised dataset with 138 words and phrases (112 from reviews and 26 from review summaries). I then saved the x and y train data in separate csv files for modelling.
 </details>
 
-<a name="Modelling"></a>
+<a name="Modelling, Hyperparameter Tuning & Evaluation"></a>
 ### Modelling:
 <details open>
 <summary>Show/Hide</summary>
 <br>
 
-I have created .py files; Classifiction.py and Ensemble.py with classes, that contain functions to simplify the modelling process, and to neaten up the modelling notebook.
+Here we divide the dataset by a ratio of 60:40. There are 4 models tested here, namely Linear Regression, Ridge Regression, Lasso Regression, and ElasticNET Regression. Both of these models assume a linear relationship between features and targets..
 
-I did another data split into Train and Validation data in preparation for using GridSearch Cross Validation. I also chose Stratified 5-fold has a my choice for cross validating.
+For the evaluation metric, there is R2 to see how well the model that has been made predicts the data, we use this metric because this metric is often used and also we did not find any problems when using R2. MAE, MSE, and RMSE are the most frequently used metrics, but these three metrics are very scale-dependent which does not match our dataset, because sales data can range in the millions. MAPE and NRMSE are scale-independent, but MAPE is asymmetrical and gives a large error value if the resulting value is negative, so we decided to use NRMSE, which is RMSE divided by the standard deviation of the prediction.
 
-For the majority of models I created, I applied hyperparameter tuning, where I started with a broad range of hyperparameters, and tuned for optimal train accuracy and validation accuracy. 
+<h5 align="center">Model Used (Left) & Evaluation Metric Used (Right)</h5>
+<table><tr><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide16.JPG' width=500></td><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide17.JPG' width=500></td></tr></table>
 
+In Linear Regression, we tried 3 data with the scenarios previously mentioned, then we also applied 3 feature scaling methods, it is standardization, normalization, and robust scaler. Based on the results of the best R2 value, we can see from the thick line and large dot size, all of which are almost owned by the second dataset, which is where all outliers are dropped. And for the smallest Normalized RMSE, it is again almost owned by the second dataset, which is where all outliers are dropped. It was therefore decided to use a second dataset to compare the models.
 
-<h5 align="center">Table Comparing Best Models</h5>
+<h5 align="center">Linear Regression: R2 (Left) & NRMSE (Right)</h5>
+<table><tr><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide18.JPG' width=500></td><td><img src='https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide19.JPG' width=500></td></tr></table>
+
+Here are the results for Ridge Regression, the base model on the left, then the model with hyperparameter tuning on the right. The parameter we're tuning for is the alpha, which governs how much Ridge Regression penalizes the weight value. From the plot, we can see that there is a slight improvement in the model that has been tuning parameters but not too significant.
+
+<h5 align="center">Ridge Regression: R2 & NRMSE</h5>
 <p align="center">
-  <img src="https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/all_models.png" width=600>
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide20.JPG" width=600>
 </p>
 
-Initially, I thought the validation accuracy was low for most of the models I created, but when considering these models were attempting to classify for 5 different classes, 0.45 and greater seems very reasonable (where 0.2 = randomly guessing correctly).
+Meanwhile, for lasso regression the Base model has very poor performance on data with feature scaling. Then after we tuning the alpha, the performance changed to be much better, but this happened because we changed the alpha to be close to zero, which according to the documentation is not recommended because Lasso with alpha 0 is the same as Linear Regression.
 
-I have saved all the models using the pickle library's dump function and stored them in the Models folder.
-</details>
+<h5 align="center">Lasso Regression: R2 & NRMSE</h5>
+<p align="center">
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide21.JPG" width=600>
+</p>
 
-<a name="Evaluation"></a>
-### Evaluation
-<details open>
-<summary>Show/Hide</summary>
-<br>
+Meanwhile, the ElasticNET regression Base model has a much worse performance. Our assumption is that because ElasticNet is a combination of Lasso and Ridge, since Lasso from ScikitLearn doesn't seem to be able to handle the problem we have, we assume ElasticNet might have the same problem.
+
+<h5 align="center">ElasticNET Regression: R2 & NRMSE</h5>
+<p align="center">
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide22.JPG" width=600>
+</p>
 
 I focused on 3 factors of defining a good model:
 
@@ -200,47 +257,31 @@ I focused on 3 factors of defining a good model:
 2. Good Training Accuracy
 3. Small Difference between Training and Validation Accuracy
 
-I chose the Stacking ensemble model ( (Adaboost with log_reg_2) stacked with log_reg_2 ) as my best model, because it has the highest validation accuracy with only around 3.5% drop from train to validation in accuracy. I wanted to minimise overfitting and make the model as reusable as possible. Stacking achieved a reasonable training accuracy as well, although it did not reach the level of some of the other ensemble techniques.
+From the performance comparison between models, it can be seen that the results between Linear Regression and Ridge Regression are quite competitive here, so we decided to use Ridge Regression because the penalty function in ridge regression can avoid the possibility of overfitting in the future.
 
-I next tested the best model with the earlier saved test data. The model managed to get a high test accuracy, similar to the validation data from the model training stage. This is very good, proving that prioritising a high validation score, and minimising the difference between train and validation accuracy, has helped it classify new review texts very well.
-
-<h5 align="center">Test Results</h5>
+<h5 align="center">Comparison Between Models</h5>
 <p align="center">
-  <img src="https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/test_results.png" width=600>
+  <img src="https://github.com/RizqiSeijuuro/walmart-weekly-sales-prediction/blob/main/images/Slide23.JPG" width=600>
 </p>
-
-Looking at the precision, recall, and f1 score, I also noticed the scores were higher around scores of 1 and 5, lower for 2, 3, and 4. This shows that the models performs well on more extreme opinions on reviews than mixed opinions.
-
-Looking into different metrics and deeper into my best model; Stacking, I learnt that most the False Postives came from close misses (e.g. predicting a score of 4 for a true score of 5). This is best shown by these two confusion matrixes (validation and test). 
-
-<h5 align="center">Confusion Matrix for Validation and Test Data Predictions ( Validation (Left) and Test (Right) )</h5>
-<table><tr><td><img src='https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/validation_conf_matrix.png' width=500></td><td><img src='https://github.com/awesomeahi95/Hotel_Review_NLP/blob/master/Images/test_conf_matrix.png' width=500></td></tr></table>
-
-The adjacent squares of the diagonal going across the confusion matrix, shows that the model's second highest prediction for a given class (review score) is always a review score that is +-1 the true score.
-Very few reviews that have a score of 5, have been predicted to have a score of 1 or 2. This is very relieving to know, the majority of the error for the model, is no different to the error a human may make classifying a review to a score with a scale of 1-5.
-
-- most errors were near misses (e.g. 5 predicted as 4)
-- extreme scores (1 and 5) were relatively accurate
-- comparable to human prediction
-- reusable and consistent
-
-
-Given the classifcation problem is 5 way multi-class one and the adjacent classes can have overlap in the english language even to humans, this model I have created can be deployed.
-
-Applying this model will address the problem of not having a full understanding of public opinion of our hotel. We can apply this to new sources for opinions on our hotel and yield more feedback then we did had before.
-
-<a name="Future_Improvements"></a>
-#### Future Improvements
-
-- Model using neural networks - see if better accuracy can be achieved
-- Create a working application to test new reviews written by people
-- Try a different pre-processing approach and see if model performances change
-- Bring in new sources of data to see if there are significant differences on frequent words used
 
 </details>
 
-#### Future Development
-    
-* Create a webscraper spider for twitter, reddit, etc for further model assessment
-    
+<a name="Conclusion"></a>
+#### Conclusion
+
+- The best model for predicting weekly sales is Ridge Regression. This model can provide information that helps business managers identify and understand weaknesses in business planning.
+- The Marketing Division should increase advertising during the weeks after Christmas and before Thanksgiving.
+- Need additional people from the Logistics division in November-December because sales increased significantly compared to other months.
+- Re-stock goods sufficiently on weekdays to minimize production costs.
+
+</details>
+
+<a name="Future_Improvements"></a>
+#### Future Improvements/Development
+
+- Model using random forest regressor - see if better accuracy can be achieved
+- Create a working application to test Weekly Sales written by people
+- Try a different pre-processing approach and see if model performances change
+- Bring in new sources of data to see if there are significant differences on time factor used
+
 </details>
